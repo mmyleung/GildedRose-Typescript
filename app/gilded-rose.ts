@@ -63,7 +63,11 @@ export class GildedRose {
                 }
             }
         }
-
+        console.log("[");
+        for (const item of this.items) {
+            console.log(`    new Item('${item.name}', ${item.sellIn}, ${item.quality})`);
+        };
+        console.log("]");
         return this.items;
     }
 }
