@@ -30,7 +30,7 @@ export class GildedRose {
                         this.items[i].quality = this.items[i].quality - 1
                     }
                 }
-                 //if this item is aged brie or backstage pass
+            //if this item is aged brie or backstage pass
             } else {
                //if quality is less than 50
                 if (this.items[i].quality < 50) {
@@ -60,7 +60,7 @@ export class GildedRose {
             //if the name is not sulfuras
             if (this.items[i].name != 'Sulfuras, Hand of Ragnaros') {
                 //sellin -1
-                this.items[i].sellIn = this.items[i].sellIn - 1;
+                this.items[i].sellIn --;
             }
             //if sellIn is less than 0
             if (this.items[i].sellIn < 0) {

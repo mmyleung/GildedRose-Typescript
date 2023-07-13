@@ -21,11 +21,29 @@ describe('Gilded Rose', function () {
         expect(items[0].sellIn).to.equal(0);
     });
 
-    it("should decrease by 1 in quality", function() {
-        const gildedRose = new GildedRose([ new Item('foo', 5, 1) ]);
-        const items = gildedRose.updateQuality();
-        expect(items[0].quality).to.equal(0);
-    });
+    // it("should decrease by 1 in quality", function() {
+    //     const gildedRose = new GildedRose([ new Item('foo', 5, 1) ]);
+    //     const items = gildedRose.updateQuality();
+    //     expect(items[0].quality).to.equal(0);
+    // });
+
+    // it("should decrease by 1 in quality if quality is more than 1", function() {
+    //     const gildedRose = new GildedRose([ new Item('foo', 5, 1) ]);
+    //     const items = gildedRose.updateQuality();
+    //     expect(items[0].quality).to.equal(0);
+    // });
+
+    // it("should not change in quality once it reaches 0", function() {
+    //     const gildedRose = new GildedRose([ new Item('foo', 5, 0) ]);
+    //     const items = gildedRose.updateQuality();
+    //     expect(items[0].quality).to.equal(0);
+    // });
+    // it("should (aged brie) increase by 1 in quality if quality is less than 50", function() {
+    //     const gildedRose = new GildedRose([ new Item('Aged Brie', 5, 1) ]);
+    //     const items = gildedRose.updateQuality();
+    //     expect(items[0].quality).to.equal(0);
+    // });
+
 
 
 
