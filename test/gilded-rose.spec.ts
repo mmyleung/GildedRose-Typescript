@@ -9,6 +9,26 @@ describe('Gilded Rose', function () {
         expect(items[0].name).to.equal('foo');
     });
 
+    it("should decrease by 1 in sellIn", function() {
+        const gildedRose = new GildedRose([ new Item('foo', 5, 0) ]);
+        const items = gildedRose.updateQuality();
+        expect(items[0].sellIn).to.equal(4);
+    });
+
+    it("should not decrease in sellIn if name is sulfuras", function() {
+        const gildedRose = new GildedRose([ new Item('Sulfuras, Hand of Ragnaros', 0, 80) ]);
+        const items = gildedRose.updateQuality();
+        expect(items[0].sellIn).to.equal(0);
+    });
+
+    it("should decrease by 1 in quality", function() {
+        const gildedRose = new GildedRose([ new Item('foo', 5, 1) ]);
+        const items = gildedRose.updateQuality();
+        expect(items[0].quality).to.equal(0);
+    });
+
+
+
     it("should match golden record", function() {
         const gildedRose = new GildedRose(
             [

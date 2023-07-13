@@ -62,7 +62,7 @@ export class GildedRose {
                 //sellin -1
                 this.items[i].sellIn = this.items[i].sellIn - 1;
             }
-            //if selling is less than 0
+            //if sellIn is less than 0
             if (this.items[i].sellIn < 0) {
                 //if name is not aged brie
                 if (this.items[i].name != 'Aged Brie') {
