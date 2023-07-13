@@ -21,28 +21,68 @@ describe('Gilded Rose', function () {
         expect(items[0].sellIn).to.equal(0);
     });
 
-    // it("should decrease by 1 in quality", function() {
-    //     const gildedRose = new GildedRose([ new Item('foo', 5, 1) ]);
-    //     const items = gildedRose.updateQuality();
-    //     expect(items[0].quality).to.equal(0);
-    // });
+    it("should not decrease in quality if name is sulfuras", function() {
+        const gildedRose = new GildedRose([ new Item('Sulfuras, Hand of Ragnaros', 0, 80) ]);
+        const items = gildedRose.updateQuality();
+        expect(items[0].quality).to.equal(80);
+    });
 
-    // it("should decrease by 1 in quality if quality is more than 1", function() {
-    //     const gildedRose = new GildedRose([ new Item('foo', 5, 1) ]);
-    //     const items = gildedRose.updateQuality();
-    //     expect(items[0].quality).to.equal(0);
-    // });
+    it("should decrease by 1 in quality if quality is more than 1 and sellIn is more or equal to 0", function() {
+        const gildedRose = new GildedRose([ new Item('foo', 5, 1) ]);
+        const items = gildedRose.updateQuality();
+        expect(items[0].quality).to.equal(0);
+    });
 
-    // it("should not change in quality once it reaches 0", function() {
-    //     const gildedRose = new GildedRose([ new Item('foo', 5, 0) ]);
-    //     const items = gildedRose.updateQuality();
-    //     expect(items[0].quality).to.equal(0);
-    // });
-    // it("should (aged brie) increase by 1 in quality if quality is less than 50", function() {
-    //     const gildedRose = new GildedRose([ new Item('Aged Brie', 5, 1) ]);
-    //     const items = gildedRose.updateQuality();
-    //     expect(items[0].quality).to.equal(0);
-    // });
+    it("should decrease by 2 in quality if quality is more than 1 and sellIn is less than 0", function() {
+        const gildedRose = new GildedRose([ new Item('foo', 0, 10) ]);
+        const items = gildedRose.updateQuality();
+        expect(items[0].quality).to.equal(8);
+    });
+
+    it("should not change in quality once it reaches 0", function() {
+        const gildedRose = new GildedRose([ new Item('foo', 5, 0) ]);
+        const items = gildedRose.updateQuality();
+        expect(items[0].quality).to.equal(0);
+    });
+
+    it("should (aged brie) increase by 1 in quality if quality is less than 50", function() {
+        const gildedRose = new GildedRose([ new Item('Aged Brie', 5, 1) ]);
+        const items = gildedRose.updateQuality();
+        expect(items[0].quality).to.equal(2);
+    });
+
+    it("should not increase in quality if quality is 50", function() {
+        const gildedRose = new GildedRose([ 
+            new Item('Aged Brie', 5, 50),
+            new Item('Backstage passes to a TAFKAL80ETC concert', 5, 50),
+        ]);
+        const items = gildedRose.updateQuality();
+        expect(items[0].quality).to.equal(50);
+    });
+
+    it("should (backstage pass) increase by 2 in quality if sellIn <= 10", function() {
+        const gildedRose = new GildedRose([ new Item('Backstage passes to a TAFKAL80ETC concert', 10, 1) ]);
+        const items = gildedRose.updateQuality();
+        expect(items[0].quality).to.equal(3);
+    });
+
+    it("should (backstage pass) increase by 3 in quality if sellIn <= 5", function() {
+        const gildedRose = new GildedRose([ new Item('Backstage passes to a TAFKAL80ETC concert', 5, 1) ]);
+        const items = gildedRose.updateQuality();
+        expect(items[0].quality).to.equal(4);
+    });
+
+    it("should (backstage pass) get to 0 quality if sellIn <= 0", function() {
+        const gildedRose = new GildedRose([ new Item('Backstage passes to a TAFKAL80ETC concert', 0, 1) ]);
+        const items = gildedRose.updateQuality();
+        expect(items[0].quality).to.equal(0);
+    });
+
+    it("should (conjured items) should -2 quality each day", function() {
+        const gildedRose = new GildedRose([ new Item('Conjured', 5, 20) ]);
+        const items = gildedRose.updateQuality();
+        expect(items[0].quality).to.equal(18);
+    });
 
 
 
