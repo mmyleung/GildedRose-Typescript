@@ -40,10 +40,12 @@ export class GildedRose {
 
             } else {
                 item.sellIn --;
+                let qualityMultiplier = 0;
                 switch (typeOfItem) {
 
                     case 'Aged':
-                        item.quality = item.sellIn < 0 ? item.quality += 2 : item.quality += 1;
+                        qualityMultiplier = -1;
+                        item.quality = this.changeQuality (item.sellIn, item.quality, qualityMultiplier)
                         break;
 
                     case 'Backstage passes':
@@ -59,11 +61,13 @@ export class GildedRose {
                         break;
 
                     case 'Conjured':
-                        item.quality = item.sellIn > 0 ? item.quality -= 2 : item.quality -= 4;
+                        qualityMultiplier = 2;
+                        item.quality = this.changeQuality (item.sellIn, item.quality, qualityMultiplier)
                         break;
 
                     default: 
-                        item.quality = item.sellIn > 0 ? item.quality -= 1 : item.quality -= 2;
+                        qualityMultiplier = 1;
+                        item.quality = this.changeQuality (item.sellIn, item.quality, qualityMultiplier)
                 }
 
                 if(item.quality > 50) {
@@ -74,5 +78,10 @@ export class GildedRose {
             }
         }
         return this.items;
+    }
+
+    changeQuality (sellIn, quality, multiplier) {
+        return quality = sellIn > 0 ? quality -= 1 * multiplier : quality -= 2 * multiplier;
+
     }
 }
