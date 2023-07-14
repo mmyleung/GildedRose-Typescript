@@ -44,7 +44,7 @@ export class GildedRose {
                 switch (typeOfItem) {
 
                     case 'Aged':
-                        qualityMultiplier = -1;
+                        qualityMultiplier = 1;
                         item.quality = this.changeQuality (item.sellIn, item.quality, qualityMultiplier)
                         break;
 
@@ -61,12 +61,12 @@ export class GildedRose {
                         break;
 
                     case 'Conjured':
-                        qualityMultiplier = 2;
+                        qualityMultiplier = -2;
                         item.quality = this.changeQuality (item.sellIn, item.quality, qualityMultiplier)
                         break;
 
                     default: 
-                        qualityMultiplier = 1;
+                        qualityMultiplier = -1;
                         item.quality = this.changeQuality (item.sellIn, item.quality, qualityMultiplier)
                 }
 
@@ -81,7 +81,7 @@ export class GildedRose {
     }
 
     changeQuality (sellIn, quality, multiplier) {
-        return quality = sellIn > 0 ? quality -= 1 * multiplier : quality -= 2 * multiplier;
+        return quality = sellIn > 0 ? quality -= -1 * multiplier : quality -= -2 * multiplier;
 
     }
 }
