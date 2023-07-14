@@ -18,68 +18,60 @@ export class GildedRose {
     }
 
     updateQuality() {
-        //for loop, loops through the items array
+
         for (let i = 0; i < this.items.length; i++) {
-            const name = this.items[i].name;
-            
-            switch (name) {
-                //if sulfuras then set quality to 80, sellIn to 0
-                case 'Sulfuras, Hand of Ragnaros':
-                    this.items[i].sellIn = 0;
-                    this.items[i].quality = 80;
-                    break;
-                //if aged brie
-                case 'Aged Brie':
-                    //decrease sellIn by 1
-                    this.items[i].sellIn --;
-                    //if sellIn is less than 0, quality increases by 2 else by 1
-                    this.items[i].quality = this.items[i].sellIn < 0 ? this.items[i].quality += 2 : this.items[i].quality += 1;
-                    //if quality is less than 50 then quality ++, else quality = 50;
-                    // if (this.items[i].quality > 50) {
-                    //     this.items[i].quality = 50;
-                    // }
-                    this.items[i].quality = checkQualityMax(this.items[i].quality);
-                    break;
-                case 'Backstage passes to a TAFKAL80ETC concert':
-                    if (this.items[i].sellIn > 10) {
-                        this.items[i].quality ++;
-                    } else if (this.items[i].sellIn <=10 && this.items[i].sellIn >5) {
-                        this.items[i].quality += 2;
-                    } else if (this.items[i].sellIn <=5 && this.items[i].sellIn > 0) {
-                        this.items[i].quality += 3;
-                    } else if (this.items[i].sellIn <= 0){
-                        this.items[i].quality = 0;
-                    }
-                    //if quality is less than 50 then quality is the same, else quality = 50;
-                    this.items[i].quality = checkQualityMax(this.items[i].quality);
-                    //decrease sellIn by 1
-                    this.items[i].sellIn --;
-                    break;
-                //if conjured
-                case 'Conjured Mana Cake':
-                    //if sellIn is more than 0, decrease quality by 2 else by 4
-                    this.items[i].quality = this.items[i].sellIn > 0 ? this.items[i].quality -= 2 : this.items[i].quality -= 4;
-                    //if quality is less than 0, set quality to 0;
-                    if (this.items[i].quality < 0) {
-                        this.items[i].quality = 0;
-                    }
-                    //decrease sellIn by 1
-                    this.items[i].sellIn --;  
-                    break;
-                default: 
-                    //if sellIn is more than 0, decrease quality by 1 else by 2
-                    this.items[i].quality = this.items[i].sellIn > 0 ? this.items[i].quality -= 1 : this.items[i].quality -= 2;
-                    //if quality is less than 0, set quality to 0;
-                    if (this.items[i].quality < 0) {
-                        this.items[i].quality = 0;
-                    }
-                    this.items[i].sellIn --;
+            const item = this.items[i];
 
+            let typeOfItem = "";
 
+            if (item.name.startsWith("Sulfuras")) {
+                typeOfItem = "Sulfuras";
+            } else if (item.name.startsWith("Aged")) {
+                typeOfItem = "Aged";
+            } else if (item.name.startsWith("Backstage passes")) {
+                typeOfItem = "Backstage passes";
+            } else if (item.name.startsWith("Conjured")) {
+                typeOfItem = "Conjured";
+            } else {
+                typeOfItem = "Common";
             }
-        }
-        function checkQualityMax (quality) {
-            return quality = quality > 50 ? 50 : quality;
+
+            if(typeOfItem === 'Sulfuras') {
+
+            } else {
+                item.sellIn --;
+                switch (typeOfItem) {
+
+                    case 'Aged':
+                        item.quality = item.sellIn < 0 ? item.quality += 2 : item.quality += 1;
+                        break;
+
+                    case 'Backstage passes':
+                        if (item.sellIn > 10) {
+                            item.quality ++;
+                        } else if (item.sellIn >5) {
+                            item.quality += 2;
+                        } else if (item.sellIn > 0) {
+                            item.quality += 3;
+                        } else if (item.sellIn <= 0){
+                            item.quality = 0;
+                        }
+                        break;
+
+                    case 'Conjured':
+                        item.quality = item.sellIn > 0 ? item.quality -= 2 : item.quality -= 4;
+                        break;
+
+                    default: 
+                        item.quality = item.sellIn > 0 ? item.quality -= 1 : item.quality -= 2;
+                }
+
+                if(item.quality > 50) {
+                    item.quality = 50;
+                } else if (item.quality < 0) {
+                    item.quality = 0;
+                }
+            }
         }
         return this.items;
     }
